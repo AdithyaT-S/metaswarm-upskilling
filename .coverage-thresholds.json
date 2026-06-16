@@ -1,0 +1,10 @@
+{
+  "thresholds": {
+    "lines": 80,
+    "branches": 80,
+    "functions": 80,
+    "statements": 80
+  },
+  "enforcement_command": "npx vitest run --coverage",
+  "notes": "Coverage enforced at 80%. Run enforcement_command to check."
+}

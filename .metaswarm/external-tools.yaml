@@ -1,0 +1,9 @@
+codex:
+  enabled: false
+  install: "npm i -g @openai/codex"
+  notes: "Not installed. Run install command, then `codex login` to authenticate."
+
+gemini:
+  enabled: false
+  install: "npm i -g @google/gemini-cli"
+  notes: "Not installed. Run install command to set up."

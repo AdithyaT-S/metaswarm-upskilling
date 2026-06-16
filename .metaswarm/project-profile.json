@@ -1,0 +1,35 @@
+{
+  "metaswarm_version": "0.7.0",
+  "installed_at": "2026-06-16T00:00:00.000Z",
+  "updated_at": "2026-06-16T00:00:00.000Z",
+  "detection": {
+    "language": "typescript",
+    "framework": "next.js",
+    "test_runner": "vitest",
+    "linter": null,
+    "formatter": null,
+    "package_manager": "pnpm",
+    "type_checker": "tsc",
+    "ci": null,
+    "git_hooks": null
+  },
+  "choices": {
+    "coverage_threshold": 80,
+    "external_tools": true,
+    "visual_review": true,
+    "ci_pipeline": true,
+    "git_hooks": true,
+    "beads": true
+  },
+  "constraints": {
+    "gh_cli_available": false,
+    "gh_cli_note": "GitHub CLI (gh) is not installed. Use git only; surface GitHub actions (PR creation, issue sync) as manual steps for the user."
+  },
+  "commands": {
+    "test": "pnpm vitest run",
+    "coverage": "pnpm vitest run --coverage",
+    "lint": null,
+    "typecheck": "pnpm tsc --noEmit",
+    "format_check": null
+  }
+}
