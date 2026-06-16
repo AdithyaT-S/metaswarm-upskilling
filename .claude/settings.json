@@ -1,0 +1,23 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bd prime --hook-json",
+            "type": "command"
+          }
+        ],
+        "matcher": ""
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Read(//c/Works/anticlock/docs/**)",
+      "Read(//c/Works/anticlock/.claude/skills/pr-review/**)",
+      "Read(//c/Works/anticlock/src/lib/db/**)",
+      "Read(//c/Works/anticlock/.claude/skills/fix-pr-comments/**)"
+    ]
+  }
+}
