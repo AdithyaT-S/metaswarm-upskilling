@@ -15,7 +15,7 @@
   },
   "choices": {
     "coverage_threshold": 80,
-    "external_tools": true,
+    "external_tools": false,
     "visual_review": true,
     "ci_pipeline": true,
     "git_hooks": true,
