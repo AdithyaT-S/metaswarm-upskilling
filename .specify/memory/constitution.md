@@ -80,7 +80,7 @@ See `docs/Stitch Instructions.md` for all screen IDs and `docs/STITCH_PROMPTS.md
 - **Styling**: Tailwind CSS only — no hardcoded hex values, no CSS modules, no inline styles
 - **Components**: shadcn/ui in `src/components/ui/` (never edit); shared components in `src/components/shared/` (check before building)
 - **Email**: Resend for transactional; inbound via webhook (never direct SMTP)
-- **Auth**: Supabase Auth JWT with `org_id` custom claim — no other auth libraries
+- **Auth**: NextAuth v4 (CredentialsProvider + bcryptjs). Session strategy: JWT. `org_id` and `role` stored in token via callbacks. No Supabase Auth — auth is provider-agnostic.
 
 ## Development Workflow & Quality Gates
 
@@ -104,4 +104,4 @@ live runtime complement — it tracks what exists; this document tracks what rul
 **Amendment procedure**: Direct edit + PR. Update version and Last Amended date. Changes to a
 MUST/PROHIBITED rule require updating both this file and `SYSTEM_STATE.md` if affected.
 
-**Version**: 1.0.0 | **Ratified**: 2026-06-16 | **Last Amended**: 2026-06-16
+**Version**: 1.1.0 | **Ratified**: 2026-06-16 | **Last Amended**: 2026-06-16

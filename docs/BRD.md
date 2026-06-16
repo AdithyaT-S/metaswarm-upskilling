@@ -140,7 +140,7 @@ Small and mid-sized B2B sales and support teams rely on bloated, expensive CRM t
 | Constraint | Detail |
 |------------|--------|
 | Multi-tenancy | Every table scoped to `org_id`. RLS via `current_org_id()` helper on all providers |
-| Auth | Supabase Auth (JWT). `org_id` embedded in JWT claims |
+| Auth | NextAuth v4 (CredentialsProvider + bcryptjs). `org_id` and `role` embedded in JWT via session callbacks. Supabase Auth is not used — auth is provider-agnostic via the `users` table in Postgres. |
 | DB portability | App works on local Docker, Supabase Cloud, AWS RDS, Neon, Railway — env var switch only |
 | Frontend | Next.js 14 App Router, TypeScript, Tailwind CSS, shadcn/ui — no changes allowed |
 | Validation | Zod on every form and every server action — no exceptions |
