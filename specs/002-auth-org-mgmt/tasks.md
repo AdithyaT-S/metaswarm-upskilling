@@ -12,11 +12,13 @@
 | ID | Task | Parallel? | Blocker |
 |----|------|-----------|---------|
 | T-0.1 | Initialise Next.js 14 app: `pnpm create next-app@latest . --typescript --tailwind --app --src-dir --import-alias "@/*"` | No | — |
-| T-0.2 | Install dependencies: `next-auth bcryptjs @types/bcryptjs zod react-hook-form @hookform/resolvers resend` | No | T-0.1 |
+| T-0.2 | Install dependencies: `next-auth bcryptjs @types/bcryptjs zod react-hook-form @hookform/resolvers resend tsx` | No | T-0.1 |
 | T-0.3 | Install shadcn/ui: `npx shadcn-ui@latest init` then add `card input label button form toast` | No | T-0.1 |
-| T-0.4 | Write `src/lib/db/index.ts` provider router (already exists — verify and adjust) | Yes (with T-0.2) | T-0.1 |
-| T-0.5 | Write `db/migrations/001_schema.sql` — orgs, users, invitations tables with RLS | Yes (with T-0.2) | — |
-| T-0.6 | Re-enable `.github/workflows/ci.yml` (rename from `.disabled`) | Yes | T-0.1 |
+| T-0.4 | Verify `src/lib/db/index.ts` provider router (already scaffolded — confirm `queryForOrg` signature matches actions) | Yes (with T-0.2) | T-0.1 |
+| T-0.5 | Add `db:migrate`, `db:seed`, `db:migrate:reset`, `db:status` scripts to `package.json` (scripts already exist at `scripts/migrate.ts` + `scripts/seed.ts`) | Yes | T-0.2 |
+| T-0.6 | Configure `.env.local`: set `DATABASE_URL`, `DB_PROVIDER=local`, `NEXTAUTH_SECRET`, `NEXTAUTH_URL`. Run `npm run db:migrate` to apply all pre-written migrations (000–004_settings). | No | T-0.2, T-0.5 |
+| T-0.7 | Run `npm run db:seed` to seed demo org + 2 users + full CRM data. Verify login: `admin@demo.com / password123` | No | T-0.6 |
+| T-0.8 | Re-enable `.github/workflows/ci.yml` (rename from `.disabled`) | Yes | T-0.1 |
 
 ---
 
@@ -35,7 +37,7 @@
 
 | ID | Task | Parallel? | Blocker |
 |----|------|-----------|---------|
-| T-2.1 | Write `src/lib/actions/auth.ts` — signUp (atomic: insert org + user + hash password), signIn redirect, inviteUser, acceptInvite, updateMemberRole, removeMember | No | T-1.1, T-1.4, T-0.5 |
+| T-2.1 | Write `src/lib/actions/auth.ts` — signUp (atomic: insert org + user + hash password), signIn redirect, inviteUser, acceptInvite, updateMemberRole, removeMember | No | T-1.1, T-1.4, T-0.6 |
 
 ---
 
@@ -63,7 +65,7 @@
 
 | Agent | Tasks |
 |---|---|
-| architect | T-0.5 (schema design), T-1.1 (NextAuth config) |
-| coder | T-0.1–T-0.4, T-0.6, T-1.2–T-1.4, T-2.1, T-3.1–T-3.4 |
+| architect | T-1.1 (NextAuth config) |
+| coder | T-0.1–T-0.8, T-1.2–T-1.4, T-2.1, T-3.1–T-3.4 |
 | test-automator | T-4.1, T-4.2 |
 | code-review | Verify bcrypt cost=12, JWT claims include orgName, RLS applied to orgs+users+invitations |
