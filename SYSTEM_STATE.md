@@ -35,14 +35,23 @@ _(none yet — populated from implementation discoveries)_
 
 ---
 
-## Next Up
+## Planning Status
 
-- [ ] **001-auth** — Authentication & Org Management (BRD §4.1)
-  - Email + password signup with org creation
-  - Login / logout / session refresh
-  - Role-based access: admin, member, viewer
-  - Invite team members by email
-  - Supabase Auth JWT with `org_id` claim
+| # | Module | Spec | Plan | Tasks | Build |
+|---|--------|------|------|-------|-------|
+| 002 | Auth & Org Management | ✓ | ✓ | ✓ | pending |
+| 003 | Layout Shell | ✓ | ✓ | ✓ | pending |
+| 004 | Shared Components | ✓ | ✓ | ✓ | pending |
+| 005 | Contacts | ✓ | ✓ | ✓ | pending |
+| 006 | Leads | ✓ | ✓ | ✓ | pending |
+| 007 | Deals + Kanban | ✓ | ✓ | ✓ | pending |
+| 008 | Tickets | ✓ | ✓ | ✓ | pending |
+| 009 | Activities | ✓ | ✓ | ✓ | pending |
+| 010 | Email | ✓ | ✓ | ✓ | pending |
+| 011 | Reports | ✓ | ✓ | ✓ | pending |
+| 012 | Settings | ✓ | ✓ | ✓ | pending |
+
+**All 11 modules planned. Ready to build in BRD §9 order starting with 002-auth.**
 
 ---
 
@@ -54,7 +63,7 @@ _(none yet — populated from implementation discoveries)_
 | Language | TypeScript 5 (strict) |
 | Styling | Tailwind CSS + shadcn/ui |
 | Database | PostgreSQL (multi-provider via `DB_PROVIDER`) |
-| Auth | Supabase Auth (JWT + org_id claim) |
+| Auth | NextAuth v4 (CredentialsProvider + bcryptjs, JWT + org_id + role) |
 | Validation | Zod (every Server Action + form) |
 | Testing | Vitest (unit) + Playwright (E2E) |
 | Email | Resend |
@@ -69,6 +78,6 @@ _(none yet — populated from implementation discoveries)_
 | `src/lib/actions/` | Server Actions (one file per module) |
 | `src/components/shared/` | Shared UI components — check before building any UI |
 | `src/components/ui/` | shadcn/ui auto-generated — never edit |
-| `supabase/migrations/` | SQL migration files |
+| `db/migrations/` | SQL migration files (000_extensions, 001_tables, 002_rls, ...) |
 | `.specify/memory/constitution.md` | Governance principles |
 | `docs/BRD.md` | Full requirements |
