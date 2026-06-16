@@ -63,6 +63,16 @@ test. Tests co-located in `__tests__/` next to the module they test.
 
 **Rationale**: Coverage gates are the primary defense against AI-generated regressions.
 
+### VIII. Stitch-First UI (NON-NEGOTIABLE)
+Every frontend page and component is built from the Stitch design reference (Project ID: `10851584638320860726`).
+Before writing any UI code, fetch the relevant screen via the `stitch-design` skill. Component names in
+code MUST match Stitch: `DataTable`, `KanbanCard`, `StatusBadge`, `ActivityTimeline`, `CrudForm`.
+Color: Indigo `#4F46E5` primary. Font: Inter. Background: `gray-50`. Surfaces: white.
+Auth pages have no Stitch screen — use shadcn Card, `max-w-md mx-auto mt-24`.
+See `docs/Stitch Instructions.md` for all screen IDs and `docs/STITCH_PROMPTS.md` for context.
+
+**Rationale**: Consistent pixel-accurate UI across all modules without per-module design decisions.
+
 ## Technology & Architecture Constraints
 
 - **Framework**: Next.js 14 App Router — no Pages Router, no `getServerSideProps`

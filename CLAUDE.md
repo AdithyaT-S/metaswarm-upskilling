@@ -70,6 +70,8 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - **Multi-tenancy**: every DB query must be scoped to `org_id` via `queryForOrg()`.
 - **Zod everywhere**: every Server Action input validated — no exceptions.
 - **No `any`**: except at raw DB row boundaries.
+- **UI from Stitch**: before writing any page or component, fetch the relevant Stitch screen via the `stitch-design` skill. Never design from scratch if a Stitch screen exists.
+- **Library docs via Context7**: use the `find-docs` skill for any Next.js / Supabase / shadcn/ui / Zod API — never rely on training data for signatures.
 - Read `SYSTEM_STATE.md` before starting any new module (live schema + patterns + gotchas).
 - Full requirements: `docs/BRD.md`
 
