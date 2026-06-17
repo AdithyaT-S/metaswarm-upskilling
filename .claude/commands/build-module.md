@@ -20,7 +20,17 @@ No arguments — reads the active feature from `.specify/feature.json`.
 
 ## Steps
 
-1. **Verify prerequisites**: Read `.specify/feature.json` to confirm active feature directory.
+1. **Branch setup** (ALWAYS before any code):
+   ```bash
+   git checkout master
+   git pull origin master
+   git checkout -b feat/<feature-slug>   # e.g. feat/auth, feat/contacts
+   ```
+   - If working tree is dirty, stop and ask the user to resolve it first.
+   - If the branch already exists (resuming interrupted work), just check it out — do NOT reset it.
+   - Never implement on master.
+
+2. **Verify prerequisites**: Read `.specify/feature.json` to confirm active feature directory.
    - Confirm plan.md and tasks.md exist. If missing, tell user to run `/specify-module` first.
 
 2. **Load context for agents**:
@@ -52,13 +62,19 @@ No arguments — reads the active feature from `.specify/feature.json`.
    - Updates `SYSTEM_STATE.md` with new schema, actions, patterns, gotchas.
    - Writes `.beads/knowledge/` entries.
 
-6. **Report and stop**:
+7. **Report and stop**:
    - Files changed, test results, SYSTEM_STATE.md sections updated.
-   - Proposed commit message.
-   - Ask: "Ready to commit? Run `/commit` then push."
+   - Proposed git commands for user to run:
+     ```bash
+     git push -u origin feat/<feature-slug>
+     # then open GitHub → Compare & pull request
+     ```
+   - After push confirmed: `bd close <id1> <id2> ...` for all completed issues.
 
 ## Rules
 
 - Never commit or push automatically — always stop for human approval.
 - Never skip quality gates or `/speckit-handoff`.
 - One module per invocation — do not chain to next module automatically.
+- `bd close` only after branch is pushed — never on local commit alone.
+- Always branch from a clean, pulled master (Step 1). No exceptions.
