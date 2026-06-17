@@ -11,6 +11,7 @@
 |---|--------|---------|--------|
 | 002 | Auth & Org Management | NextAuth CredentialsProvider + JWT (id/orgId/orgName/role), 5 Server Actions (signUp/inviteUser/acceptInvite/updateMemberRole/removeMember), auth pages (login/signup/invite), 66 unit tests, 6 E2E specs | feat/auth-actions |
 | 003 | Layout Shell | Dashboard shell layout (Sidebar/Topbar/main), 7 shell components (Sidebar, SidebarNav, Topbar, TopbarSearch, UserAvatar, UserAvatarMenu, MobileNav), 18 unit tests, 22 E2E specs | feat/layout-shell |
+| 004 | Shared Components | 11 reusable UI components in src/components/shared/ (DataTable, CrudForm, ActivityTimeline, StatusBadge, PriorityDot, EmptyState, ConfirmDialog, SearchInput, PageHeader, OwnerSelect, TagInput), barrel index.ts, 56 unit tests, 92%+ coverage | feat/shared-components |
 
 ---
 
@@ -89,6 +90,12 @@ All in `src/lib/actions/auth.ts` — `'use server'` directive.
 - **NextAuth session shape**: JWT + session callbacks embed `id`, `orgId`, `orgName`, `role` — access via `getAuthUser()` in Server Actions, `useSession()` in client components. `orgName` added in module 003 (JOIN with orgs table during authorize).
 - **Shell architecture**: Server Component wrappers (Sidebar, Topbar) receive user props from layout and render Client Component children (SidebarNav, UserAvatarMenu, etc.). Server Components cannot be imported by Client Components.
 - **Dashboard layout test pattern**: Async Server Components must be called as `await Component({children})` in tests, then `render(jsx)`. Mock `next-auth/next`, shadcn children, and shell components.
+- **Shared component imports**: Always import from `@/components/shared` (barrel index), never from individual file paths. All 11 components re-exported from `src/components/shared/index.ts`.
+- **DataTable pattern**: TanStack Table v8, `manualPagination: true`, `manualSorting: true`, `getCoreRowModel()` only. Server drives all pagination/sorting. Props: data, columns, isLoading, pageIndex, pageCount, onPageChange, onSortChange, emptyState, onRowClick.
+- **CrudForm pattern**: Accepts `UseFormReturn<T>` prop — never calls `useForm()` internally. Consuming page owns Zod schema and `useForm()` call.
+- **ACTIVITY_TYPE_CONFIG**: Lives in `src/lib/utils/activity.ts`. The `bg` field encodes both bg + text color as one Tailwind string (e.g. `'bg-blue-100 text-blue-600'`). Apply via `cn(config.bg)`.
+- **cn() location**: `src/lib/utils.ts` (not `src/lib/utils/cn.ts`). Import as `@/lib/utils`. Utility files (activity.ts, format.ts) live in `src/lib/utils/`.
+- **cmdk jsdom polyfills**: Tests using shadcn Command/OwnerSelect require `ResizeObserver` stub and `scrollIntoView` stub in `beforeAll`.
 
 ---
 
@@ -110,7 +117,7 @@ All in `src/lib/actions/auth.ts` — `'use server'` directive.
 |---|--------|------|------|-------|-------|
 | 002 | Auth & Org Management | ✓ | ✓ | ✓ | ✓ DONE |
 | 003 | Layout Shell | ✓ | ✓ | ✓ | ✓ DONE |
-| 004 | Shared Components | ✓ | ✓ | ✓ | pending |
+| 004 | Shared Components | ✓ | ✓ | ✓ | ✓ DONE |
 | 005 | Contacts | ✓ | ✓ | ✓ | pending |
 | 006 | Leads | ✓ | ✓ | ✓ | pending |
 | 007 | Deals + Kanban | ✓ | ✓ | ✓ | pending |
@@ -120,7 +127,7 @@ All in `src/lib/actions/auth.ts` — `'use server'` directive.
 | 011 | Reports | ✓ | ✓ | ✓ | pending |
 | 012 | Settings | ✓ | ✓ | ✓ | pending |
 
-**Next up: 004 — Shared Components**
+**Next up: 005 — Contacts**
 
 ---
 

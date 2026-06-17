@@ -78,14 +78,14 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - Full requirements: `docs/BRD.md`
 
 <!-- SPECKIT START -->
-Active feature: specs/002-auth-org-mgmt/
-- Spec:      specs/002-auth-org-mgmt/spec.md
-- Plan:      specs/002-auth-org-mgmt/plan.md
-- Research:  specs/002-auth-org-mgmt/research.md
-- Data Model: specs/002-auth-org-mgmt/data-model.md
-- Contracts: specs/002-auth-org-mgmt/contracts/server-actions.md
-- Quickstart: specs/002-auth-org-mgmt/quickstart.md
-- Tasks:     specs/002-auth-org-mgmt/tasks.md
+Active feature: specs/005-contacts/
+- Spec:      specs/005-contacts/spec.md
+- Plan:      specs/005-contacts/plan.md
+- Research:  specs/005-contacts/research.md
+- Data Model: specs/005-contacts/data-model.md
+- Contracts: specs/005-contacts/contracts/server-actions.md
+- Quickstart: specs/005-contacts/quickstart.md
+- Tasks:     specs/005-contacts/tasks.md
 <!-- SPECKIT END -->
 
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:6cd5cc61 -->
