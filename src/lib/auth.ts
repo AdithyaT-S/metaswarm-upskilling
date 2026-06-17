@@ -10,11 +10,13 @@ declare module 'next-auth' {
     user: {
       id: string
       orgId: string
+      orgName: string
       role: 'admin' | 'member' | 'viewer'
     } & DefaultSession['user']
   }
   interface User {
     orgId: string
+    orgName: string
     role: 'admin' | 'member' | 'viewer'
   }
 }
@@ -23,6 +25,7 @@ declare module 'next-auth/jwt' {
   interface JWT {
     id: string
     orgId: string
+    orgName: string
     role: 'admin' | 'member' | 'viewer'
   }
 }
@@ -42,12 +45,16 @@ export const authOptions: NextAuthOptions = {
         const rows = await query<{
           id: string
           org_id: string
+          org_name: string
           email: string
           full_name: string
           role: 'admin' | 'member' | 'viewer'
           password_hash: string | null
         }>(
-          'SELECT id, org_id, email, full_name, role, password_hash FROM users WHERE email = $1 LIMIT 1',
+          `SELECT u.id, u.org_id, o.name AS org_name, u.email, u.full_name, u.role, u.password_hash
+           FROM users u
+           JOIN orgs o ON o.id = u.org_id
+           WHERE u.email = $1 LIMIT 1`,
           [parsed.data.email]
         )
 
@@ -57,18 +64,18 @@ export const authOptions: NextAuthOptions = {
         const valid = await bcrypt.compare(parsed.data.password, user.password_hash)
         if (!valid) return null
 
-        return { id: user.id, email: user.email, name: user.full_name, orgId: user.org_id, role: user.role }
+        return { id: user.id, email: user.email, name: user.full_name, orgId: user.org_id, orgName: user.org_name, role: user.role }
       },
     }),
   ],
   session: { strategy: 'jwt' },
   callbacks: {
     jwt({ token, user }) {
-      if (user) { token.id = user.id; token.orgId = user.orgId; token.role = user.role }
+      if (user) { token.id = user.id; token.orgId = user.orgId; token.orgName = user.orgName; token.role = user.role }
       return token
     },
     session({ session, token }) {
-      session.user.id = token.id; session.user.orgId = token.orgId; session.user.role = token.role
+      session.user.id = token.id; session.user.orgId = token.orgId; session.user.orgName = token.orgName; session.user.role = token.role
       return session
     },
   },
