@@ -7,19 +7,17 @@ argument-hint: "[optional notes about this module's completion]"
 
 ## Context
 
-Current feature directory:
 !`cat .specify/feature.json 2>/dev/null || echo "No active feature"`
 
-Current SYSTEM_STATE.md:
-!`cat SYSTEM_STATE.md`
-
-Spec for this module:
-!`cat "$(cat .specify/feature.json | python -c "import sys,json; print(json.load(sys.stdin).get('feature_directory',''))")/spec.md" 2>/dev/null || echo "No spec found"`
-
-Tasks completed:
-!`cat "$(cat .specify/feature.json | python -c "import sys,json; print(json.load(sys.stdin).get('feature_directory',''))")/tasks.md" 2>/dev/null || echo "No tasks found"`
-
 ## Your task
+
+**Before doing anything else**, read these files using your Read tool:
+1. `.specify/feature.json` — parse `feature_directory` to get the active feature path
+2. `SYSTEM_STATE.md` — current system state
+3. `<feature_directory>/spec.md` — module spec
+4. `<feature_directory>/tasks.md` — completed tasks
+5. `<feature_directory>/plan.md` — technical plan
+6. `<feature_directory>/data-model.md` — DB schema (if it exists)
 
 1. **Read** the completed module's `spec.md`, `plan.md`, `tasks.md` from the current feature directory.
 
