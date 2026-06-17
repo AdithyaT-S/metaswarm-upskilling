@@ -36,9 +36,20 @@ Changed files:
 
    Match the tone and style of recent commits shown above.
 
-3. Run `git commit -m "<message>"` with the generated message.
+3. Check current branch — if it is `master`, stop and print:
+   `✗ You are on master. Create a feature branch first: git checkout -b feat/<name>`
 
-4. Print confirmation:
-   `✓ Committed: <type>(<scope>): <summary>`
+4. Run `git commit -m "<message>"` with the generated message.
+
+5. Print:
+   ```
+   ✓ Committed: <type>(<scope>): <summary>
+
+   Next steps:
+     git push -u origin <current-branch>
+
+   After push, close completed issues:
+     bd close <id1> <id2> ...
+   ```
 
 If `git status` shows nothing to commit, print "Nothing to commit." and stop.
