@@ -12,8 +12,8 @@
 | WU-001 | anticlock-metaswarm-fap | COMPLETE | COMMITTED | 0 |
 | WU-002 | anticlock-metaswarm-3r5 | COMPLETE | COMMITTED | 0 |
 | WU-003 | anticlock-metaswarm-wp5 | COMPLETE | COMMITTED | 2 |
-| WU-004 | anticlock-metaswarm-f7h | IN-PROGRESS | IMPLEMENT | 0 |
-| WU-005 | anticlock-metaswarm-31w | IN-PROGRESS | IMPLEMENT | 0 |
+| WU-004 | anticlock-metaswarm-f7h | COMPLETE | COMMITTED | 0 |
+| WU-005 | anticlock-metaswarm-31w | COMPLETE | COMMITTED | 0 |
 
 ## Blocked / Escalated
 (none)
