@@ -51,30 +51,43 @@ No arguments — reads the active feature from `.specify/feature.json`.
    - Agents use `find-docs` skill for library API lookups (no training-data guessing).
    - Constitution gates enforced by architect-agent before any code is written.
 
-4. **After swarm completes — run quality gates**:
+4. **After swarm completes — run quality gates** (BLOCKING):
    ```bash
-   pnpm tsc --noEmit
-   pnpm vitest run --coverage
+   npx tsc --noEmit
+   npx vitest run --coverage
    ```
-   Fix any failures before proceeding.
+   Fix any failures before proceeding. Do NOT skip.
 
-5. **Run `/speckit-handoff`**:
-   - Updates `SYSTEM_STATE.md` with new schema, actions, patterns, gotchas.
-   - Writes `.beads/knowledge/` entries.
+5. **Run `/speckit-handoff`** (BLOCKING — MUST NOT SKIP):
+   - This step is mandatory even when resuming a session mid-loop.
+   - Invoke the skill directly: read `.specify/feature.json`, then read and update `SYSTEM_STATE.md`, then write `.beads/knowledge/` entries.
+   - Commit the handoff changes: `git add SYSTEM_STATE.md .beads/knowledge/ && git commit -m "chore(handoff): <module> — update SYSTEM_STATE + knowledge base"`
+
+6. **Completion checklist** — tick every box before reporting done:
+   ```
+   [ ] All WUs committed on the feature branch
+   [ ] npx tsc --noEmit passes
+   [ ] npx vitest run --coverage passes (≥80% all dimensions)
+   [ ] /speckit-handoff ran: SYSTEM_STATE.md updated + .beads/knowledge/ written + committed
+   [ ] User told to: git push -u origin feat/<slug>
+   [ ] User told to: bd close <id1> <id2> ... (only AFTER push)
+   ```
+   Do NOT report "module complete" until all boxes are checked.
 
 7. **Report and stop**:
    - Files changed, test results, SYSTEM_STATE.md sections updated.
-   - Proposed git commands for user to run:
+   - Tell user to run:
      ```bash
      git push -u origin feat/<feature-slug>
      # then open GitHub → Compare & pull request
+     # then: bd close <id1> <id2> ...
      ```
-   - After push confirmed: `bd close <id1> <id2> ...` for all completed issues.
 
 ## Rules
 
 - Never commit or push automatically — always stop for human approval.
-- Never skip quality gates or `/speckit-handoff`.
+- Never skip quality gates or `/speckit-handoff` — they are BLOCKING gates, not suggestions.
 - One module per invocation — do not chain to next module automatically.
 - `bd close` only after branch is pushed — never on local commit alone.
 - Always branch from a clean, pulled master (Step 1). No exceptions.
+- If the session resumes mid-loop (after compaction or restart), re-run from the last incomplete phase — do not skip ahead to reporting.
